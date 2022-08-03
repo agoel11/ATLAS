@@ -29,10 +29,23 @@ function HomeScreen({ navigation }) {
  
   );
 }
- 
+
+var prev = "Belgium"
+function check(text, setScore, score) {
+  if (text.toLowerCase().charAt(0) == prev.toLowerCase().charAt(prev.length-1)){
+    prev = text
+    setScore(score + 1)
+    return text
+  }
+  else {
+    return prev
+  }
+}
+
 function SingleScreen({ navigation }) {
   const [text, setText] = useState('');
-  const [startplace, setStartplace] = useState('');
+  const [startplace, setStartplace] = useState(prev);
+  const [score, setScore] = useState(0)
   return (
     <View style={styles.container}>
       <LinearGradient colors={['#1155CC', 'transparent']} style={styles.background}/>
@@ -49,13 +62,14 @@ function SingleScreen({ navigation }) {
           </LinearGradient>
         </TouchableOpacity>
         <Text style={styles.normunaText}>   </Text>
-        <TouchableOpacity onPress={() => {setStartplace(text)}}>
+        <TouchableOpacity onPress={() => {setStartplace(check(text, setScore, score))}}>
           <LinearGradient colors={['#00FFFE', '#31f48e']} style={styles.enterButton}>
             <Text style={styles.buttonText}>  Enter  </Text>
           </LinearGradient>
         </TouchableOpacity>
-      </View>
+      </View> 
       <Text style={styles.normunsText}>Incorrect/ Correct</Text>
+      <Text style={styles.normunsText}>Score: {score} </Text>
       <View style={styles.container2}></View>
     </View>
   );
@@ -145,16 +159,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#4db4d7',
     alignItems: 'center',
-    paddingLeft: 230,
-    paddingTop: 215,
+    paddingLeft: 210,
+    paddingTop: 130,
   },
   container4: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#4db4d7',
-    alignItems: 'center',
-    paddingTop: 40,
-    paddingBottom: 15,
+    alignItems: 'stretch',
+    paddingTop: 10,
+    paddingBottom: 30,
   },
   container5: {
     flex: 1,
@@ -166,13 +179,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#4db4d7',
     alignItems: 'center',
-    paddingTop: 160,
-    paddingLeft: 230,
+    paddingTop: 100,
+    paddingLeft: 210,
   },
   titleText: {
     fontFamily: 'serif',
     fontWeight: 'bold',
-    fontSize: 100,
+    fontSize: 90,
     color: '#31f48e',
   },
   underText: {
@@ -210,8 +223,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   tinyLogo: {
-    width: 380,
-    height: 380,
+    width: '85%',
+    height: '40%',
     justifyContent: 'center',
     alignItems: 'center',
   },
